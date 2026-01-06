@@ -4,6 +4,20 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 uses(RefreshDatabase::class);
 
+it('Validar o registro de um bug', function () {
+    $entrada = [
+        'titulo' => '',
+        'descricao' => 'O sistema retorna erro 500 ao submeter',
+    ];
+
+    $requisicao = $this->postJson('/api/bugs', $entrada);
+    $requisicao
+        ->assertStatus(422)
+        ->assertMissingValidationErrors(['titulo']);
+
+    $this->assertTrue(true);
+});
+
 it('cria um bug com sucesso', function () {
     $response = $this->postJson('/api/bugs', [
         'titulo' => 'Erro ao salvar formulário',
