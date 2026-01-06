@@ -13,9 +13,7 @@ it('Validar o registro de um bug', function () {
     $requisicao = $this->postJson('/api/bugs', $entrada);
     $requisicao
         ->assertStatus(422)
-        ->assertMissingValidationErrors(['titulo']);
-
-    $this->assertTrue(true);
+        ->assertJsonValidationErrors(['titulo']);
 });
 
 it('cria um bug com sucesso', function () {
